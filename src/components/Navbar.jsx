@@ -1,16 +1,12 @@
 import React from 'react';
-import { Play, Search, Plus, Film, X, User, LogIn, LogOut, Shield } from 'lucide-react';
+import { Play, Search, Plus, Film, X } from 'lucide-react';
 
 export default function Navbar({
   searchQuery,
   setSearchQuery,
   onOpenUpload,
   totalVideos,
-  onResetFilters,
-  currentUser,
-  isAdmin,
-  onOpenAuth,
-  onLogout
+  onResetFilters
 }) {
   return (
     <header className="navbar">
@@ -49,68 +45,22 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* Actions & RBAC Navigation */}
+        {/* Actions */}
         <div className="nav-actions">
           <div className="stats-pill" title="Total videos in library">
             <Film size={14} className="stats-icon" />
             <span><strong className="stats-count">{totalVideos}</strong> items</span>
           </div>
 
-          {/* Admin-Only Upload Button */}
-          {isAdmin ? (
-            <button
-              className="btn-upload-primary"
-              onClick={onOpenUpload}
-              title="Upload new video (Admin Privilege)"
-              type="button"
-            >
-              <Plus size={16} />
-              <span>Upload</span>
-            </button>
-          ) : (
-            <button
-              className="btn-secondary"
-              onClick={() => onOpenAuth('admin-prompt')}
-              style={{ padding: '7px 12px', fontSize: '0.82rem' }}
-              title="Administrator login required to upload videos"
-              type="button"
-            >
-              <Shield size={14} color="#60a5fa" />
-              <span>Admin Access</span>
-            </button>
-          )}
-
-          {/* User Account / Session Controls */}
-          {currentUser ? (
-            <div className="user-profile-widget">
-              <div className="user-avatar-badge" title={`${currentUser.name} (${currentUser.role})`}>
-                <span className="user-initials">
-                  {currentUser.name ? currentUser.name.substring(0, 2).toUpperCase() : 'U'}
-                </span>
-                <span className={`user-role-tag ${currentUser.role === 'admin' ? 'role-admin' : 'role-viewer'}`}>
-                  {currentUser.role === 'admin' ? 'Admin' : 'Viewer'}
-                </span>
-              </div>
-              <button
-                type="button"
-                className="icon-action-btn"
-                onClick={onLogout}
-                title="Sign Out"
-              >
-                <LogOut size={16} />
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={() => onOpenAuth('login')}
-              style={{ padding: '7px 14px', fontSize: '0.84rem' }}
-            >
-              <LogIn size={15} />
-              <span>Sign In</span>
-            </button>
-          )}
+          <button
+            className="btn-upload-primary"
+            onClick={onOpenUpload}
+            title="Upload new video"
+            type="button"
+          >
+            <Plus size={16} />
+            <span>Upload</span>
+          </button>
         </div>
       </div>
     </header>

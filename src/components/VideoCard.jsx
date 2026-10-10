@@ -6,8 +6,7 @@ export default function VideoCard({
   video,
   onPlay,
   onToggleFavorite,
-  onDelete,
-  isAdmin
+  onDelete
 }) {
   const {
     id,
@@ -104,22 +103,20 @@ export default function VideoCard({
               <Heart size={16} fill={isFavorite ? 'currentColor' : 'none'} />
             </button>
 
-            {/* Delete Button (Admin Only) */}
-            {isAdmin && (
-              <button
-                type="button"
-                className="icon-action-btn delete-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (window.confirm(`Are you sure you want to remove "${title}"?`)) {
-                    onDelete(id);
-                  }
-                }}
-                title="Delete video (Admin Privilege)"
-              >
-                <Trash2 size={16} />
-              </button>
-            )}
+            {/* Delete Button */}
+            <button
+              type="button"
+              className="icon-action-btn delete-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (window.confirm(`Are you sure you want to remove "${title}"?`)) {
+                  onDelete(id);
+                }
+              }}
+              title="Delete video"
+            >
+              <Trash2 size={16} />
+            </button>
           </div>
         </div>
       </div>
